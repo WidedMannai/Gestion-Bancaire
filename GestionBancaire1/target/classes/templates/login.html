@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+<head>
+<meta charset="UTF-8">
+<title>Authentification</title>
+<link rel="stylesheet" type="text/css" href="./css/myStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <div class="col-md-6 col-md-offset-3  spacer40" >
+  <div class="panel panel-primary">
+    <div class="panel-heading">Authentification</div>
+    <div class="panel-body">
+    
+      <div th:if="${param.error}" class="red">
+               Incorrect username ou password Incorrect !
+      </div>
+      <div th:if="${param.logout}" class="red">
+           Vous étes deconnecté !
+      </div>
+       <form th:action="@{/login}" method="post">
+     <div>
+       <label>Utilisateur</label>
+       <input type="text" name="username"/>
+     </div>
+     <br>
+     <div>
+       <label>Mot de Passe</label>
+       <input type="password" name="password"/>
+     </div>
+     <button type="submit" class="btn btn-primary" >Connexion</button>
+   </form>
+    </div>
+ </div>
+   </div>
+</body>
+</html>
+

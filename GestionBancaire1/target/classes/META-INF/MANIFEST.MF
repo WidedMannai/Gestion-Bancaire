@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: GestionBancaire1
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: wided
+Implementation-Vendor-Id: org.sid
+Build-Jdk: 1.8.0_241
+Implementation-URL: https://spring.io/projects/spring-boot/GestionBanc
+ aire1
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+ <meta charset="UTF-8" />
+    <title>Gestion Bancaire</title>
+    <link rel="stylesheet" type="text/css" href="./css/myStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+        $("#btnPrint").live("click", function () {
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+</head>
+<body>
+<div class="panel panel-primary" th:if="${user}">
+            <div class="panel-heading">Information sur le Nouveau Utilisateur</div>
+            <div id="dvContainer" class="panel-body">
+               <div>
+                  <label>ID:</label>
+                  <label th:text="${user.id}"></label>
+               </div>
+               <div>
+                  <label>CIN:</label>
+                  <label th:text="${user.cin}"></label>
+               </div>
+               <div>
+                  <label>Username:</label>
+                  <label th:text="${user.username}"></label>
+               </div>
+               <div>
+                  <label>password:</label>
+                  <label th:text="${user.password}"></label>
+               </div>
+               <div>
+                  <label>Role:</label>
+                  <label th:text="${user.role}"></label>
+               </div>
+               <div>
+                  <label>Date de Creation :</label>
+                  <label th:text="${user.dateCreation}"></label>
+               </div>
+               <div>
+                    <label>Nom : </label>
+                    <label th:text="${user.nom}"></label>
+                </div>
+                <div>
+                    <label>Prenom : </label>
+                    <label th:text="${user.prenom}"></label>
+                </div>
+                <div>
+                    <label>Email: </label>
+                    <label th:text="${user.email}"></label>
+                </div>
+                <div>
+                  <label>Post :</label>
+                  <label th:text="${user.post}"></label>
+               </div>
+                <div>
+                    <label>Tel: </label>
+                    <label th:text="${user.tel}"></label>
+                </div>
+              
+            </div> 
+             <input type="button" class="btn btn-primary" value="Format PDF" id="btnPrint" />
+         </div>
+         
+</body>
+</html>

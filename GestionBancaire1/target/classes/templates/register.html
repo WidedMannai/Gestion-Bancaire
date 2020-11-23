@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <meta charset="UTF-8">
+ <title>Gestion Bancaire</title>
+<link rel="stylesheet" type="text/css" href="./css/myStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org
+"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout
+"
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8">
+<title>Formulaire Enseignant</title>
+<!-- <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css"> -->
+</head>
+<body>
+	<div layout:fragment="pageContent" style="margin-left: 23%;">
+
+		<div class="container mt-5">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header" th:if="${user.id==null}">Formulaire
+						d'ajout d'un nouveau enseignant</div>
+					<div class="card-header" th:if="${user.id!=null}">Formulaire
+						de mise à jour d'un enseignant</div>
+					<div class="card-body">
+						<form th:action="@{saveUser}" method="post">
+
+							<div class="form-group" th:if="${user.id!=null}">
+								<label class="control-label">ID :</label> <label
+									class="control-label" th:text=${user.id}></label> <input
+									type="hidden" name="id" class="form-control"
+									th:value=${user.id}>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Username :</label> <input type="text" 
+									required="required"
+									name="username" class="form-control" th:value=${user.username}>
+								<span th:errors=${user.username} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Nom :</label> <input type="text"
+									required="required"
+									name="nom" class="form-control"
+									th:value=${user.nom}> <span
+									th:errors=${user.nom} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Prenom :</label> <input type="text"
+									required="required"
+									name="prenom" class="form-control"
+									th:value=${user.prenom}> <span
+									th:errors=${user.prenom} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Email :</label> <input type="email" 
+									placeholder="prenom.nom@gmail.com" required="required"
+									name="email" class="form-control" th:value=${user.email}>
+								<span th:errors=${user.email} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">NumTel :</label> <input type="text"
+									required="required" pattern="[0-9]{8,8}"
+									name="numTel" class="form-control"
+									th:value=${user.tel}> <span
+									th:errors=${user.tel} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+
+
+ <!-- 							<div class="form-group">
+								<label class="control-label">Active :</label> <input type="text" 
+								 required="required"
+									name="active" class="form-control" th:value=${enseignant.active}>
+								<span th:errors=${enseignant.active} class="text-danger"></span>
+								pour le msg d'erreur
+							</div> -->
+							
+							
+							<div class="form-group">
+								<label class="control-label">Password :</label> <input
+									type="password" required="required" pattern="[0-9a-zA-Z]{6,30}"
+									placeholder="Mot de passe"
+									name="password" class="form-control"
+									th:value=${user.password}> <span
+									th:errors=${user.password} class="text-danger"></span>
+								<!-- pour le msg d'erreur -->
+							</div>
+							
+
+
+							<div class="form-group">
+								<label class="control-label">Role :</label> <select
+									name="role" class="form-control">
+									<option th:if="${user.id == null }" th:each="r:${role}"
+										th:value="${r.role}" th:text="${r.role}"></option>
+									<option th:if="${user.id != null }" th:each="r:${role}"
+										th:value="${r.role}"
+										th:selected="(${r.role} == *{user.role.role})"
+										th:text="${r.role}"></option>
+								</select>
+							</div>
+							
+							<button class="btn btn-succes" type="submit">Valider</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>
+
+
+<!-- 
+<body>
+   <div   layout:fragment="content">
+   <div  class="col-md-8"> 
+            <div class="panel panel-primary"> 
+            <div class="panel-heading">Création d'un nouveau Utilisateur :</div>
+            <div class="panel-body">
+               <form  th:action="@{saveUser(id=${id})}"  method="post">
+                   <div>
+                     <label>Id :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.id}" required="required">
+                  </div> 
+                  
+                  <div>
+                     <label>CIN :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.cin}" required="required">
+                  </div>
+                    <div>
+                     <label>Username :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.username}" required="required">
+                  </div>
+                  <div>
+                     <label>Password :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.password}" required="required">
+                  </div>
+                  <div>
+                     <label>Role :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.role}" required="required">
+                  </div>
+                 <div>
+                     <label>Nom :</label>
+                     <input type="text" name="nom" th:value="${user.nom}" required="required">
+                 </div>
+                 <div>
+                     <label>Prenom :</label>
+                     <input type="text" name="prenom" th:value="${user.prenom}" required="required" >
+                 </div>
+                 <div>
+                     <label>Email :</label>
+                     <input type="text" placeholder="user@exemple.com" name="email" th:value="${user.email}" >
+                 </div>
+                 <div>
+                     <label>Post :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${user.post}" required="required">
+                  </div>
+                 <div>
+                     <label>Tel :</label>
+                     <input type="number" name="tel" th:value="${user.tel}" >
+                 </div>
+                
+                    <button type="submit" class="btn btn-primary">enregistrer</button>
+                    <button type="reset" class="btn btn-primary">annuler</button>
+               </form>
+            </div> 
+           </div>
+         </div>
+        </div>    
+</body>
+</html>
+ -->

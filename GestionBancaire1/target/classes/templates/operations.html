@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="template1">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestion Bancaire</title>
+    <link rel="stylesheet" type="text/css" href="./css/myStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#btnPrint").live("click", function () {
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+     <script type="text/javascript">
+        $("#btnPrint1").live("click", function () {
+            var divContents = $("#dvContainer1").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+     <script type="text/javascript">
+        $("#btnPrint2").live("click", function () {
+            var divContents = $("#dvContainer2").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+  
+</head>
+<body>
+ <div layout:fragment="content">
+        <div class="col-md-6">
+           <div class="panel panel-primary">
+            <div class="panel-heading">Consultation d'un compte</div>
+              <div class="panel-body">
+                 <form th:action="@{/consulterCompte}" method="get">
+                    <div>
+                        <label>Numero de Compte : </label>
+                        <input type="text"   name="codeCompte" th:value="${codeCompte}" required/> 
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                  </form>
+                  <div class="text-danger" th:if="${exception}" th:text="${exception}"  ></div>
+             </div> 
+           </div>
+           
+           <div class="panel panel-primary" th:if="${compte}">
+            <div class="panel-heading">Information sur le compte</div>
+            <div  id="dvContainer" class="panel-body">
+                <div>
+                <label>Numero de Compte: </label>
+                <label th:text="${compte.codeCompte}"></label>
+                </div>
+                <div>
+                <label>Date creation : </label>
+                <label th:text="${compte.dateCreation}"></label>
+                </div>
+                <div>
+                    <label>Type du Compte: </label>
+                    <label th:text="${compte.class.simpleName}"></label>
+                </div>
+                  <div>
+                <label>Solde : </label>
+                <label th:text="${compte.solde}"></label>
+                </div>
+                <div>
+                <label>Etat du compte : </label>
+                <label th:text="${compte.etat}"></label>
+                </div>
+                <div th:if="${compte.class.simpleName} == 'CompteCourant'">
+                    <label>Decouvert : </label>
+                    <label th:text="${compte.decouvert}"></label>
+                </div>
+                <div th:if="${compte.class.simpleName} == 'CompteEpargne'">
+                    <label>Taux : </label>
+                    <label th:text="${compte.taux}"></label>
+                </div>
+            </div> 
+         <input type="button" class="btn btn-primary" value="Format PDF" id="btnPrint" />
+           
+           </div>
+           <div class="panel panel-primary" th:if="${compte}">
+            <div class="panel-heading">Information sur le client</div>
+            <div  id="dvContainer1" class="panel-body">
+               <div>
+                  <label>CIN:</label>
+                  <label th:text="${compte.client.code}"></label>
+               </div>
+               <div>
+                    <label>Nom : </label>
+                    <label th:text="${compte.client.nom}"></label>
+                </div>
+                <div>
+                    <label>Prenom : </label>
+                    <label th:text="${compte.client.prenom}"></label>
+                </div>
+                <div>
+                <label>Date Naissance : </label>
+                <label th:text="${compte.client.date_nais}"></label>
+                </div>
+                <div>
+                <label>Civilite : </label>
+                <label th:text="${compte.client.civilite}"></label>
+                </div>
+                <div>
+                <label>Adresse : </label>
+                <label th:text="${compte.client.adresse}"></label>
+                </div>
+                <div>
+                    <label>Email: </label>
+                    <label th:text="${compte.client.email}"></label>
+                </div>
+                <div>
+                    <label>Tel: </label>
+                    <label th:text="${compte.client.tel}"></label>
+                </div>
+               
+            </div> 
+            <input type="button" class="btn btn-primary" value="Format PDF" id="btnPrint1" />
+         </div>
+           
+          
+        </div>
+        
+        <div class="col-md-6">
+           <div class="panel panel-primary" th:if="${compte}" >
+            <div class="panel-heading">Opérations sur le compte</div>
+            <div  class="panel-body">
+                <form th:action="@{/saveOperation}" method="post">
+                    <div >
+                        <label>Compte :</label>
+                        <input type="hidden" name="codeCompte" th:value="${compte.codeCompte}">
+                        <label th:text="${compte.codeCompte}"></label>
+                    </div>
+                    <div >
+                        <input type="radio" name="typeOperation" th:value="VERS" checked="checked" onchange="document.getElementById('forVirement').style.display='none'">
+                        <label>Versement</label>
+                        <input type="radio" name="typeOperation" th:value="RET" onchange="document.getElementById('forVirement').style.display='none'">
+                        <label>Retrait</label>
+                        <input type="radio" name="typeOperation" th:value="VIR" onchange="document.getElementById('forVirement').style.display='block'">
+                        <label>Virement</label>
+                    </div>
+                    <div id="forVirement" style="display:none">
+                        <label>Vers : </label>
+                        <input type="text" name="codeCompte2" >
+                    </div>
+                    <div>
+                        <label>Montant : </label>
+                        <input type="number" name="montant" >
+                    </div>
+                    <div th:text="${#httpServletRequest.getParameter('error')}" class="red"></div>
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </form>
+            </div> 
+           </div>
+           
+            <div class="panel panel-primary" th:if="${compte}">
+            <div class="panel-heading">Activation / Desactivation du compte</div>
+            <div class="panel-body">
+            <form th:action="@{/activerDesactiver(codeCompte=${compte.codeCompte})}" method="post">
+              <div >
+                        <input type="radio" name="etat" th:value="ACTV" >
+                        <label>Activer</label>
+                        <input type="radio" name="etat" th:value="DSCTV" >
+                        <label>Desactiver</label>
+              </div> 
+              <div th:text="${#httpServletRequest.getParameter('error')}" class="red"></div>
+                <button type="submit" class="btn btn-primary"  required>Valider</button>
+              </form>  
+            </div>
+           </div>
+           
+            <div class="panel panel-primary" th:if="${compte}">
+            <div  class="panel-heading">Liste des operations</div>
+            <div  id="dvContainer2" class="panel-body">
+                    <div >
+                        <label>Compte :</label>
+                        <input type="hidden" name="codeCompte" th:value="${compte.codeCompte}">
+                        <label th:text="${compte.codeCompte}"></label>
+                    </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Num</th><th>Type</th><th>Date</th><th>Montant</th><!--<th>Solde</th>-->
+                    </tr>
+                    <tr th:each="o : ${listOperations}" >
+                        <td th:text="${o.numero}"></td>
+                        <td th:text="${o.class.simpleName}"></td>
+                        <td th:text="${o.dateOperation}"></td>
+                        <td th:text="${o.montant}"></td> 
+                       <!--  <td th:text="${o.compte.solde}"></td>-->
+                    </tr>
+                    
+                </table>
+                   <ul class="nav nav-pills">
+                     <li th:each="p,status:${pages}">
+                       <a th:href="@{/consulterCompte(codeCompte=${codeCompte},page=${status.index})}" th:text="${status.index}"></a>
+                     </li>
+                   </ul>
+        </div> 
+        
+         
+              <input type="button" class="btn btn-primary" value="Format PDF" id="btnPrint2" />
+           
+      </div>
+
+    </div></div>   
+</body>
+</html>

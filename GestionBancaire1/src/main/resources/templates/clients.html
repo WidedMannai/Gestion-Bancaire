@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="template1">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestion Bancaire</title>
+    <link rel="stylesheet" type="text/css" href="./css/myStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div   layout:fragment="content">
+   <div  class="col-md-8"> 
+            <div class="panel panel-primary"> <!-- <div class="panel panel-primary" th:if="${client}"> -->
+            <div class="panel-heading">Création d'un nouveau Compte :</div>
+            <div class="panel-body">
+               <form  th:action="@{saveNouveauCompte(codeCompte=${codeCompte})}"  method="post">
+                    <!--  <div>
+                        <label>Cin : </label>
+                        <input type="text" pattern="[0-9]{12}" placeholder="xxxxxxxxxxxx" name="codeClient" th:value="${comte.code_cli}" required/> 
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-primary">enregistrer</button>
+                    </div>-->
+                  
+                  <div>
+                     <label>CIN :</label>
+                     <input type="text"  pattern="[0-9]{8}" placeholder="xxxxxxxx" name="code" th:value="${client.code}" required="required">
+                  </div>
+                  <div>
+                     <label>Type Compte :</label> 
+                     <input type="radio" name="type" th:value="CC" >
+                     <label>CC</label>
+                     <input type="radio" name="type" th:value="CE" ><label>CE</label>
+                  </div>
+                 <!--  <div>
+                     <label>Solde :</label>
+                     <input type="number" name="code" th:value="${client.code}" required="required">
+                 </div> -->   
+                 <div>
+                     <label>Nom :</label>
+                     <input type="text" name="nom" th:value="${client.nom}" required="required">
+                 </div>
+                 <div>
+                     <label>Prenom :</label>
+                     <input type="text" name="prenom" th:value="${client.prenom}" required="required" >
+                 </div>
+                 <div>
+                     <label>Date_Naissance :</label>
+                     <input type="date" name="date_nais" th:value="${client.code}" required="required">
+                 </div>
+                 <div>
+                     <label>Adresse :</label>
+                     <input type="text" name="adresse" th:value="${client.adresse}" required="required">
+                 </div>
+                 <div>
+                 
+                     <label>Civilite :</label> <!-- --------------saye jwha mrigl----------------------------------------------- -->
+                    
+<select name="civilite" th:value="${client.civilite}">
+   <option >Marié</option>
+   <option >Célébataire</option>
+   <option  >Divorcé</option>
+</select>
+
+                 <!--   <input type="text" name="civilite" th:value="${client.civilite}" > -->
+                 </div>
+                 <div>
+                     <label>Email :</label>
+                     <input type="text" placeholder="user@exemple.com" name="email" th:value="${client.email}" >
+                 </div>
+                 <div>
+                     <label>Tel :</label>
+                     <input type="number" name="tel" th:value="${client.tel}" >
+                 </div>
+                
+                    <button type="submit" class="btn btn-primary">enregistrer</button>
+                    <button type="reset" class="btn btn-primary">annuler</button>
+               </form>
+            </div> 
+           </div>
+         </div>
+        </div>
+        
+       
+</body>
+</html>
