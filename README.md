@@ -1,0 +1,2 @@
+# Gestion-Bancaire
+application web de gestion bancaire qui permet de gérer les comptes, les clients et les opérations. Cette application, permet aux gestionnaires d’ajouter des nouveaux clients, consulter des comptes et opérations sur un compte données, faire des opérations de versement, retrait, virement, activation et désactivation. JAVA/JEE, MVC, SPRING , Spring Security, JPA, MYSQL, HTML, CSS, JS, Bootstrap, Thymeleaf)
